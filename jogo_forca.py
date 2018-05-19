@@ -121,7 +121,6 @@ class Hangman():
 def rand_word():
     with open("palavras.csv", "rt") as f:
         bank = f.readlines()
-        #return bank[random.randint(0,len(bank)-1)].strip().lower()
         return bank[random.randint(0,len(bank)-1)].lower().strip().split(',')
 
 def main():
