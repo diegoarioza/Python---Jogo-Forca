@@ -7,6 +7,7 @@ Created on Sat May 19 17:52:34 2018
 """
 import random
 import os
+import time
 
 # Board (tabuleiro)
 board = ['''
@@ -76,8 +77,19 @@ class Hangman():
 
                 
     def perg_letra(self):
-        return input("Por Favor Digite uma letra: ")[0].lower()
-        
+        try:
+            letra_escolhida = input("Por Favor Digite uma letra: ")[0].lower()
+            if len(letra_escolhida) > 1:
+                print("Digite apenas uma letra, será considerada a primeira letra da palavra digitada - (" + letra_escolhida[0] + ")")
+                time.sleep(4)
+            return letra_escolhida
+        except IndexError:
+            print("digite uma letra apenas...")
+            time.sleep(3)
+            return " "
+        except KeyboardInterrupt:
+            print("\n\nJogo Fechado...")
+            exit()
         
     def testar_letra(self):
         letra = self.perg_letra()
@@ -121,11 +133,12 @@ class Hangman():
 def rand_word():
     with open("palavras.csv", "rt") as f:
         bank = f.readlines()
+        #return bank[random.randint(0,len(bank)-1)].strip().lower()
         return bank[random.randint(0,len(bank)-1)].lower().strip().split(',')
 
 def main():
     game = Hangman(rand_word())
-    print("Jogo da Forca bY Diego\n",board[game.letras_incorretas()[1]])
+    print("Jogo da Forca b\n",board[game.letras_incorretas()[1]])
     print("\nPalavra:", game.imprimir_palavra())
     print("\nDica:", game.tip)
     
@@ -143,4 +156,7 @@ def main():
 if __name__ == "__main__":
     main()
   
+    
+#print(rand_word())
+
             
